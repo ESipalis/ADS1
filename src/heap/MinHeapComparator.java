@@ -17,7 +17,7 @@ public final class MinHeapComparator<T> extends MinHeap<T> {
     }
 
     @Override
-    protected boolean firstLowerPosition(int index1, int index2) {
-        return comparator.compare( items[index1], items[index2] ) < 0;
+    protected int compare(int index1, int index2) {
+        return comparator.compare(items[index1], items[index2]);
     }
 }

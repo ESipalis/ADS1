@@ -27,4 +27,11 @@ public abstract class MaxHeap<T> extends Heap<T> {
     public static <T> MaxHeap<T> newInstance(Comparator<T> comparator, int initialSize) {
         return new MaxHeapComparator<T>( comparator, initialSize );
     }
+
+    @Override
+    protected final boolean isFirstLowerPosition(int index1, int index2) {
+        return compare(index1, index2) > 0;
+    }
+
+    protected abstract int compare(int index1, int index2);
 }

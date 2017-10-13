@@ -73,7 +73,7 @@ public abstract class Heap<T> {
 
     protected void swapWithParent(int childIndex) {
         int parentIndex = (childIndex - 1) / 2;
-        if ( firstLowerPosition( childIndex, parentIndex ) ) {
+        if ( isFirstLowerPosition( childIndex, parentIndex ) ) {
             swap( childIndex, parentIndex );
             swapWithParent( parentIndex );
         }
@@ -86,7 +86,7 @@ public abstract class Heap<T> {
         if ( count <= leftChildIndex ) { // No children
             return;
         } else if ( count > rightChildIndex ) { // 2 children
-            if ( firstLowerPosition( leftChildIndex, rightChildIndex ) ) { // Left child better
+            if ( isFirstLowerPosition( leftChildIndex, rightChildIndex ) ) { // Left child better
                 bestChildIndex = leftChildIndex;
             } else { // Right child better
                 bestChildIndex = rightChildIndex;
@@ -94,7 +94,7 @@ public abstract class Heap<T> {
         } else { // 1 child
             bestChildIndex = leftChildIndex;
         }
-        if ( firstLowerPosition( bestChildIndex, parentIndex ) ) { // Child better
+        if ( isFirstLowerPosition( bestChildIndex, parentIndex ) ) { // Child better
             swap( parentIndex, bestChildIndex );
             swapWithChild( bestChildIndex );
         }
@@ -106,7 +106,7 @@ public abstract class Heap<T> {
         items[index2] = temp;
     }
 
-    protected abstract boolean firstLowerPosition(int index1, int index2);
+    protected abstract boolean isFirstLowerPosition(int index1, int index2);
 
 
     public static <T extends Comparable<T>> T[] heapSort(T[] originalArray) {

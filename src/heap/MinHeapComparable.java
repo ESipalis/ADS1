@@ -10,9 +10,9 @@ public final class MinHeapComparable<T extends Comparable<T>> extends MinHeap<T>
         super( initialSize );
     }
 
-    @Override
-    protected boolean firstLowerPosition(int index1, int index2) {
-        return items[index1].compareTo( items[index2] ) < 0;
-    }
 
+    @Override
+    protected int compare(int index1, int index2) {
+        return items[index1].compareTo(items[index2]);
+    }
 }

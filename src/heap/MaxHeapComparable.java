@@ -10,7 +10,7 @@ public class MaxHeapComparable<T extends Comparable<T>> extends MaxHeap<T> {
     }
 
     @Override
-    protected boolean firstLowerPosition(int index1, int index2) {
-        return items[index1].compareTo( items[index2] ) > 0;
+    protected int compare(int index1, int index2) {
+        return items[index1].compareTo(items[index2]);
     }
 }
