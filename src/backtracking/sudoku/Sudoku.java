@@ -23,7 +23,6 @@ public class Sudoku {
         String[] elements =
                 {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         new Sudoku(puzzle, elements).run();
-        printPuzzle(puzzle);
     }
 
 
@@ -34,6 +33,7 @@ public class Sudoku {
     private final boolean [][][] boxUsed;
 
     public Sudoku(String[][] puzzle, String[] elements) {
+        checkPuzzleAndElements(puzzle, elements);
         this.puzzle = puzzle;
         this.elements = elements;
         int length = puzzle.length;
@@ -60,6 +60,9 @@ public class Sudoku {
         for (int a = 0; a < puzzle.length; a++) {
             for (int b = 0; b < puzzle[a].length; b++) {
                 String element = puzzle[a][b];
+                if (element.isEmpty()) {
+                    continue;
+                }
                 int elementIndex;
                 for (elementIndex = 0; elementIndex < elements.length; elementIndex++) {
                     if (elements[elementIndex].equals(element)) {
@@ -74,16 +77,19 @@ public class Sudoku {
 
     private void solve(int x, int y) {
         if (puzzle[x][y].isEmpty()) {
-            for (int a = 0; a < elements.length; a++) {
-                if (!isUsed(x, y, a)) {
-                    useElement(x, y, a, true);
-                    puzzle[x][y] = elements[a];
+            for (int elementIndex = 0; elementIndex < elements.length; elementIndex++) {
+                if (!isUsed(x, y, elementIndex)) {
+                    useElement(x, y, elementIndex, true);
+                    puzzle[x][y] = elements[elementIndex];
                     if (y < puzzle.length - 1) {
                         solve(x, y + 1);
                     } else if(x < puzzle.length - 1) {
                         solve(x + 1, 0);
+                    } else {
+                        printPuzzle(puzzle);
                     }
-                    useElement(x, y, a, false);
+                    useElement(x, y, elementIndex, false);
+                    puzzle[x][y] = "";
                 }
             }
         } else {
@@ -91,6 +97,8 @@ public class Sudoku {
                 solve(x, y + 1);
             } else if(x < puzzle.length - 1) {
                 solve(x + 1, 0);
+            } else {
+                printPuzzle(puzzle);
             }
         }
     }
